@@ -1,8 +1,6 @@
 ﻿using ListaAgrupada.Modelos;
-using System;
+using ListaAgrupada.ViewModels;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace ListaAgrupada
@@ -11,30 +9,18 @@ namespace ListaAgrupada
     {
         List<Model> lista = new List<Model>();
 
+        private MainViewModel ViewModel
+        {
+            get { return BindingContext as MainViewModel; }
+            set { BindingContext = value; }
+        }
+
         public MainPage()
         {
             InitializeComponent();
-            Inicializar();
-        }
-
-        private void Inicializar()
-        {
-            string[] grupos = { "Primeiro", "Segundo", "Terceiro", "Quarto", "Quinto" };
-
-            foreach (var c in grupos)
-            {
-                for (var j = 1; j <= 30; j++)
-                {
-                    var m = new Model(c, $"Info {j}");
-                    lista.Add(m);
-                }
-            }
-
-            var listaAgrupada = lista
-                .GroupBy(x => x.Grupo)
-                .Select(x => new Agrupamento<string, Model>(x.Key, x.Select(y => y)));
-
-            MyListView.ItemsSource = new ObservableCollection<Agrupamento<string, Model>>(listaAgrupada);
+            ViewModel = new MainViewModel();
+            BindingContext = ViewModel;
+            
         }
     }
 }
