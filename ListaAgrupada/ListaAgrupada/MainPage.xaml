@@ -5,9 +5,16 @@
              x:Class="ListaAgrupada.MainPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <ListView x:Name="MyListView"
+          IsGroupingEnabled="true"
+          GroupDisplayBinding="{Binding Grupo}"
+          GroupShortNameBinding="{Binding Grupo}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Info}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
